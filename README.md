@@ -8,6 +8,11 @@
 
 Python 2.7.* – 3.6.*
 
+## Как поставить
+   ```
+      pip install -e git+https://github.com/diveru4i/typograf#egg=typograf
+   ```
+
 ## Как пользоваться
 
    ```python
