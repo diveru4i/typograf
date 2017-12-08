@@ -1,6 +1,7 @@
 Типограф студии Артемия Лебедева
 ========================
 Обёртка для этого замечательного [инструмента](https://www.artlebedev.ru/typograf/)
+
 Возможно подключение к Django>=1.7
 
 ## Требования
@@ -48,4 +49,4 @@ Python 2.7.* – 3.*.*
     https://www.artlebedev.ru/typograf/
 
 ## Автор
- - <img src="https://svn.designdepot.ru/uploads/-/system/user/avatar/2/200.jpg" width="30"/> [Melfi Silver](https://svn.designdepot.ru/root)
+ - <img src="https://svn.designdepot.ru/uploads/-/system/user/avatar/2/200.jpg" width="30"/> Melfi Silver
