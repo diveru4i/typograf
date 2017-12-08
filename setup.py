@@ -2,7 +2,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name='typograf',
+    name='python-typograf',
     version='0.1.0',
     description=u'Типограф студии Лебедева',
     url='https://svn.designdepot.ru/apps/imperavi-redactor',
