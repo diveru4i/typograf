@@ -9,10 +9,11 @@
 Python 2.7.* – 3.6.*
 
 ## Как пользоваться
-    ```python
-    from typograf import typograf
 
-    typograf(text, entity_type=1, use_br=0, use_p=0, max_nobr=3, encoding='UTF-8')
+    ```python
+        from typograf import typograf
+
+        typograf(text, entity_type=1, use_br=0, use_p=0, max_nobr=3, encoding='UTF-8')
     ```
 
 ## Работа с Django
@@ -36,11 +37,11 @@ Python 2.7.* – 3.6.*
     ```
 
 * Пользуйтесь
-    ```
+    ```javascript
         POST /typograf/
         {
             'text': 'Это "Типограф"?',
-            'plain': 1  # при plain=0 вернет JSON {success: True, text: text}
+            'plain': 1  // при plain=0 вернет JSON {success: True, text: text}
         }
 
     ```
