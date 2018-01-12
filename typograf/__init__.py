@@ -9,6 +9,9 @@ except:
     from .settings import TYPOGRAF_SETTINGS
 
 
+VERSION = '0.1.3'
+
+
 def typograf(text,
     entity_type=TYPOGRAF_SETTINGS['entity_type'],
     use_br=TYPOGRAF_SETTINGS['use_br'],
@@ -16,9 +19,7 @@ def typograf(text,
     max_nobr=TYPOGRAF_SETTINGS['max_nobr'],
     encoding=TYPOGRAF_SETTINGS['encoding']):
 
-    text = text.replace('&', '&amp;')
-    text = text.replace('<', '&lt;')
-    text = text.replace ('>', '&gt;')
+    text = text.replace('&', '&amp;').replace('<', '&lt;').replace ('>', '&gt;').replace(':«', ': «')
 
     SOAPBody = u'''
         <?xml version="1.0" encoding="{encoding}"?>
