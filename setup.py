@@ -3,11 +3,11 @@ from setuptools import setup, find_packages
 
 setup(
     name='python-typograf',
-    version='0.1.0',
+    version='0.1.1',
     description=u'Типограф студии Лебедева',
-    url='https://svn.designdepot.ru/apps/imperavi-redactor',
+    url='https://github.com/diveru4i/typograf',
     author='Melfi Silver',
-    author_email='s.pirogov@designdepot.ru',
+    author_email='diveru4i@gmail.com',
     license='LicenseRef-LICENSE',
     zip_safe=False,
     packages=find_packages(),
