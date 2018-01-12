@@ -16,9 +16,7 @@ def typograf(text,
     max_nobr=TYPOGRAF_SETTINGS['max_nobr'],
     encoding=TYPOGRAF_SETTINGS['encoding']):
 
-    text = text.replace('&', '&amp;')
-    text = text.replace('<', '&lt;')
-    text = text.replace ('>', '&gt;')
+    text = text.replace('&', '&amp;').replace('<', '&lt;').replace ('>', '&gt;').replace(':«', ': «')
 
     SOAPBody = u'''
         <?xml version="1.0" encoding="{encoding}"?>

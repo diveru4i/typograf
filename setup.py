@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='python-typograf',
-    version='0.1.1',
+    version='0.1.2',
     description=u'Типограф студии Лебедева',
     url='https://github.com/diveru4i/typograf',
     author='Melfi Silver',
