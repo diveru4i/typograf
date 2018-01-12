@@ -22,6 +22,7 @@ Python 2.7.* – 3.6.*
    ```
 
 Список и описание параметров [тут](http://www.typograf.ru/webservice/about/)
+
 Дефолтный словарик с параметрами тут `typograf.settings.TYPOGRAF_SETTINGS`
 
 ## Работа с Django
@@ -44,7 +45,7 @@ Python 2.7.* – 3.6.*
     ]
     ```
 
-* Выставьте необходимые параметры в `typograf.settings.TYPOGRAF_SETTINGS`
+* Выставьте необходимые параметры в `settings.TYPOGRAF_SETTINGS`
 
 * Пользуйтесь
     ```javascript
