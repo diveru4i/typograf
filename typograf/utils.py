@@ -44,7 +44,6 @@ def typograf(text,
 
     service_url = 'http://typograf.artlebedev.ru/webservices/typograf.asmx'
 
-    ururu
     response = urllib3.PoolManager().request('POST', service_url, body=SOAPBody, headers=headers)
     result = ET.fromstring(response.data)
     return result.find('.//{http://typograf.artlebedev.ru/webservices/}ProcessTextResult').text
