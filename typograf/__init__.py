@@ -1,50 +1,82 @@
 # -*- coding: utf-8 -*-
-import xml.etree.ElementTree as ET
 import urllib3
 
 try:
     from django.conf import settings
-    TYPOGRAF_SETTINGS = settings.TYPOGRAF_SETTINGS
+    TS = settings.TYPOGRAF_SETTINGS
 except:
-    from .settings import TYPOGRAF_SETTINGS
+    from .settings import TYPOGRAF_SETTINGS as TS
 
 
-VERSION = '0.1.3'
+VERSION = '0.2.0'
+
+__doc__ = u'''http://www.typograf.ru/webservice/about/
+
+tags (теги) — значения: 0 — не расставлять; 1 — расставлять. Атрибут delete — значения: 0 — не удалять; 1 — удалять до типографирования; 2 — удалять после типографирования.
+paragraph (параграфы) — атрибут insert: 1 — ставить; 0 — не ставить. start/end теги задают внешний вид обрамления параграфа, начальные и конечные теги соответственно (могут быть пустыми).
+newline — перевод строки. Атрибут insert: 1 — ставить; 0 — не ставить. Внутри тега пишутся теги перевода строки.
+dos-text — удаляет одинарные переводы строк и переносы. Атрибут delete: 0 — не удалять; 1 — удалять.
+nowraped — неразрывные конструкции. Атрибут insert: 1 — ставить; 0 — не ставить. Атрибут nonbsp: 0 — не использовать неразрывные конструкции вместо (неразрывного пробела); 1 — наоборот. Атрибут length: не объединять в неразрывные конструкции слова, написанные через дефис, с общей длинной больше N знаков. Если 0 то не используется. start/end аналогично параграфам.
+hanging-punct — висячая пунктуация. Атрибут insert: 1 — использовать; 0 — не использовать.
+hanging-line — висячие строки. Атрибут delete: 1 — удалять; 0 — не удалять.
+minus-sign — указывает какой символ использовать вместо знака минус: — &ndash; или &minus;.
+acronym — выделять сокращения. Атрибут insert: 1 — выделять; 0 — не выделять.
+symbols — как выводить типографированный текст. Атрибут type: 0 — буквенными символами (&nbsp;); 1 — числовыми (&#160;).
+link — добавляет дополнительные атрибуты к ссылкам
+'''
 
 
 def typograf(text,
-    entity_type=TYPOGRAF_SETTINGS['entity_type'],
-    use_br=TYPOGRAF_SETTINGS['use_br'],
-    use_p=TYPOGRAF_SETTINGS['use_p'],
-    max_nobr=TYPOGRAF_SETTINGS['max_nobr'],
-    encoding=TYPOGRAF_SETTINGS['encoding']):
+    tags=TS['tags'],
+    paragraph=TS['paragraph'],
+    newline=TS['newline'],
+    dos_text=TS['dos_text'],
+    nowraped=TS['nowraped'],
+    hanging_punct=TS['hanging_punct'],
+    hanging_line=TS['hanging_line'],
+    minus_sign=TS['minus_sign'],
+    hyphen=TS['hyphen'],
+    acronym=TS['acronym'],
+    symbols=TS['symbols'],
+    link=TS['link']):
 
-    text = text.replace('&', '&amp;').replace('<', '&lt;').replace ('>', '&gt;').replace(':«', ': «')
+    service_url = 'http://www.typograf.ru/webservice/'
 
-    SOAPBody = u'''
-        <?xml version="1.0" encoding="{encoding}"?>
-        <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
-            <soap:Body>
-                <ProcessText xmlns="http://typograf.artlebedev.ru/webservices/">
-                <text>{text}</text>
-                    <entityType>{entity_type}</entityType>
-                    <useBr>{use_br}</useBr>
-                    <useP>{use_p}</useP>
-                    <maxNobr>{max_nobr}</maxNobr>
-                </ProcessText>
-            </soap:Body>
-        </soap:Envelope>
-    '''.format(text=text, entity_type=entity_type, use_br=use_br, use_p=use_p, max_nobr=max_nobr, encoding=encoding).strip().encode('utf8')
-
-    headers = {
-        'Host': 'typograf.artlebedev.ru',
-        'Content-Type': 'text/xml',
-        'Content-Length': str(len(SOAPBody)),
-        'SOAPAction': 'http://typograf.artlebedev.ru/webservices/ProcessText'
-    }
-
-    service_url = 'http://typograf.artlebedev.ru/webservices/typograf.asmx'
-
-    response = urllib3.PoolManager().request('POST', service_url, body=SOAPBody, headers=headers)
-    result = ET.fromstring(response.data)
-    return result.find('.//{http://typograf.artlebedev.ru/webservices/}ProcessTextResult').text
+    XML = u'''<?xml version="1.0" encoding="windows-1251" ?>
+        <preferences>
+            <!-- Теги -->
+            <tags delete="{tags[delete]}">{tags[value]}</tags>
+            <!-- Абзацы -->
+            <paragraph insert="{paragraph[insert]}">
+                <start><![CDATA[{paragraph[start]}]]></start>
+                <end><![CDATA[{paragraph[end]}]]></end>
+            </paragraph>
+            <!-- Переводы строк -->
+            <newline insert="{newline[insert]}"><![CDATA[{newline[value]}]]></newline>
+            <!-- Переводы строк <p>&nbsp;</p> -->
+            <cmsNewLine valid="0" />
+            <!-- DOS текст -->
+            <dos-text delete="{dos_text[delete]}" />
+            <!-- Неразрывные конструкции -->
+            <nowraped insert="{nowraped[insert]}" nonbsp="{nowraped[nobsp]}" length="{nowraped[length]}">
+                <start><![CDATA[{nowraped[start]}]]></start>
+                <end><![CDATA[{nowraped[end]}]]></end>
+            </nowraped>
+            <!-- Висячая пунктуация -->
+            <hanging-punct insert="{hanging_punct[insert]}" />
+            <!-- Удалять висячие слова -->
+            <hanging-line delete="{hanging_line[delete]}" />
+            <!-- Символ минус -->
+            <minus-sign><![CDATA[{minus_sign[value]}]]></minus-sign>
+            <!-- Переносы -->
+            <hyphen insert="{hyphen[insert]}" length="hyphen[length]" />
+            <!-- Акронимы -->
+            <acronym insert="{acronym[insert]}"></acronym>
+            <!-- Вывод символов 0 - буквами 1 - числами -->
+            <symbols type="{symbols[type]}" />
+            <!-- Параметры ссылок -->
+            <link target="{link[target]}" class="{link[class]}" />
+        </preferences>
+    '''.format(**locals())
+    text = urllib3.PoolManager().request('POST', service_url, fields={'text': text, 'chr': 'UTF-8', 'xml': XML}).data.decode('utf8')
+    return text

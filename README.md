@@ -1,6 +1,6 @@
-Типограф студии Артемия Лебедева
+Типограф Евгения Лепёшкина
 ========================
-Обёртка для этого замечательного [инструмента](https://www.artlebedev.ru/typograf/)
+Обёртка для этого замечательного [инструмента](http://www.typograf.ru/)
 
 Возможно подключение к Django>=1.7
 
@@ -18,8 +18,11 @@ Python 2.7.* – 3.6.*
    ```python
        from typograf import typograf
 
-       typograf(text, entity_type=1, use_br=0, use_p=0, max_nobr=3, encoding='UTF-8')
+       typograf(text, **params)
    ```
+
+Список и описание параметров [тут](http://www.typograf.ru/webservice/about/)
+Дефолтный словарик с параметрами тут `typograf.settings.TYPOGRAF_SETTINGS`
 
 ## Работа с Django
 
@@ -41,6 +44,8 @@ Python 2.7.* – 3.6.*
     ]
     ```
 
+* Выставьте необходимые параметры в `typograf.settings.TYPOGRAF_SETTINGS`
+
 * Пользуйтесь
     ```javascript
         POST /typograf/
@@ -52,7 +57,7 @@ Python 2.7.* – 3.6.*
     ```
 
 ## Веб-сервис
-    https://www.artlebedev.ru/typograf/
+    http://www.typograf.ru/
 
 ## Автор
  - <img src="https://avatars2.githubusercontent.com/u/1587683?s=40&v=4" width="30"/> [Melfi Silver](https://github.com/diveru4i)

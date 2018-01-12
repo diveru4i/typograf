@@ -1,18 +1,52 @@
 # -*- coding: utf-8 -*-
 
+
 TYPOGRAF_SETTINGS = {
-    'entity_type': 1,
-    'use_br': 0,
-    'use_p': 0,
-    'max_nobr': 3,
-    'encoding': 'UTF-8',
+    'tags': {
+        'value': 1,
+        'delete': 0
+    },
+    'paragraph': {
+        'insert': 1,
+        'start': '<p>',
+        'end': '</p>'
+    },
+    'newline': {
+        'value': '<br/>',
+        'insert': 1,
+    },
+    'dos_text': {
+        'delete': 0,
+    },
+    'nowraped': {
+        'insert': 0,
+        'nobsp': 0,
+        'length': 0,
+        'start': '<nobr>',
+        'end': '</nobr>',
+    },
+    'hanging_punct': {
+        'insert': 0,
+    },
+    'hanging_line': {
+        'delete': 0,
+    },
+    'minus_sign': {
+        'value': '&ndash;',
+    },
+    'hyphen': {
+        'insert': 0,
+        'length': 0
+    },
+    'acronym': {
+        'insert': 0,
+    },
+    'symbols': {
+        'type': 0
+    },
+    'link': {
+        'target': '',
+        'class': ''
+    }
 }
 
-'''
-    entityType: {
-        1: 'html',
-        2: 'xml',
-        3: 'no',
-        4: 'mixed'
-    }
-'''
